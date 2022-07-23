@@ -1,0 +1,51 @@
+{
+  "name": "my-extension",
+  "private": true,
+  "version": "0.0.0",
+  "engines": {
+    "vscode": "^1.66.0"
+  },
+  "main": "./dist/extension/main.js",
+  "activationEvents": [
+    "onCustomEditor:myExtension.customEdit"
+  ],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "myExtension.customEdit",
+        "displayName": "Custom Edit",
+        "selector": [
+          {
+            "filenamePattern": "*.txt"
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm build",
+    "build:webview": "vite build webview",
+    "watch:webview": "vite build webview --watch",
+    "build:extension": "tsc -p extension/tsconfig.json",
+    "watch:extension": "tsc -p extension/tsconfig.json -w",
+    "build": "concurrently -n \"ext,web\" -c \"blue.bold,green.bold\" pnpm:build:extension pnpm:build:webview",
+    "watch": "concurrently -n \"ext,web\" -c \"blue.bold,green.bold\" --kill-others pnpm:watch:extension pnpm:watch:webview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.1",
+    "@tsconfig/svelte": "^3.0.0",
+    "@types/node": "^18.0.6",
+    "@types/vscode": "^1.69.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "concurrently": "^7.3.0",
+    "eslint": "^8.20.0",
+    "svelte": "^3.49.0",
+    "svelte-check": "^2.8.0",
+    "svelte-preprocess": "^4.10.7",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.0"
+  }
+}
